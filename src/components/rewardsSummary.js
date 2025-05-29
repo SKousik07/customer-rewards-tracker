@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { calculateRewardPoints } from "../utils/rewardUtils";
 import {
+  NoDataText,
   SummaryContainer,
   SummaryItem,
   Title,
@@ -39,9 +40,7 @@ const RewardsSummary = ({ filteredTransactions, selectedCustomer }) => {
     <SummaryContainer>
       <Title>Rewards Summary - {selectedCustomer.customerName}</Title>
       {filteredTransactions.length === 0 ? (
-        <p style={{ textAlign: "center", color: "#777" }}>
-          No transactions found for the selected filters.
-        </p>
+        <NoDataText>No transactions found for the selected filters.</NoDataText>
       ) : (
         <>
           {Object.entries(monthlySummary).map(([month, points]) => (

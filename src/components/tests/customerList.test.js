@@ -23,7 +23,7 @@ describe("CustomerList", () => {
       />
     );
 
-    expect(screen.getByText("All Customers")).toBeInTheDocument();
+    expect(screen.getByText("Customer List")).toBeInTheDocument();
     expect(screen.getByText("Customer Name")).toBeInTheDocument();
     expect(screen.getByText("Total Rewards")).toBeInTheDocument();
 

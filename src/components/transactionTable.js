@@ -19,7 +19,6 @@ const TransactionTable = ({ filteredTransactions }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    // Reset to page 1 whenever filtered data changes (e.g., customer or filters change)
     setCurrentPage(1);
   }, [filteredTransactions]);
 

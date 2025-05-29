@@ -2,18 +2,18 @@ const calculateRewardPoints = (amount) => {
   let points = 0;
 
   if (amount > 100) {
-    points += (amount - 100) * 2 + 50; // 2 pts over $100 + 1 pt for $50–$100
+    points += (amount - 100) * 2 + 50;
   } else if (amount > 50) {
-    points += amount - 50; // 1 pt per dollar between $50–$100
+    points += amount - 50;
   }
 
-  return Math.floor(points); // Handle decimal amounts
+  return Math.floor(points);
 };
 
 const getRecentThreeMonthsTransactions = (transactions, customerId) => {
   const now = new Date();
   const threeMonthsAgo = new Date();
-  threeMonthsAgo.setMonth(now.getMonth() - 3); // last 3 months including current
+  threeMonthsAgo.setMonth(now.getMonth() - 3);
 
   return transactions.filter((t) => {
     const txDate = new Date(t.date);

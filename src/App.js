@@ -7,9 +7,10 @@ import {
   getRecentThreeMonthsTransactions,
 } from "./utils/rewardUtils";
 import Filters from "./components/filters";
-import { CenterWrapper } from "./styles/commonStyles";
+import { CenterWrapper, ErrorMessage } from "./styles/commonStyles";
 import RewardsSummary from "./components/rewardsSummary";
 import TransactionTable from "./components/transactionTable";
+import LoadingSpinner from "./components/loadingSpinner";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -36,7 +37,6 @@ function App() {
     loadTransactions();
   }, []);
 
-  // Group all transactions by customer and calculate total rewards
   const customerRewardsSummary = useMemo(() => {
     const summary = {};
     transactions.forEach((tx) => {
@@ -55,8 +55,8 @@ function App() {
 
   const handleCustomerSelect = (customer) => {
     setSelectedCustomer(customer);
-    setFilters({ month: "", year: "" }); // Reset filters
-    setUseRecent3Months(true); // Re-enable recent 3 months
+    setFilters({ month: "", year: "" });
+    setUseRecent3Months(true);
   };
 
   const handleFilterChange = (filterName, value) => {
@@ -64,7 +64,7 @@ function App() {
       ...prev,
       [filterName]: value,
     }));
-    setUseRecent3Months(false); // Switch off default mode when user selects month/year
+    setUseRecent3Months(false);
   };
 
   const handleFilterReset = () => {
@@ -86,8 +86,8 @@ function App() {
 
   return (
     <>
-      {loading && <div className="loading">Loading transactions...</div>}
-      {error && <div className="error">{error}</div>}
+      {loading && <LoadingSpinner />}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       {!loading && !error && (
         <>
           <CustomerList

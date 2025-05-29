@@ -12,7 +12,7 @@ import {
 function CustomerList({ customers, selectedCustomer, onChange }) {
   return (
     <>
-      <TableHeading>All Customers</TableHeading>
+      <TableHeading>Customer List</TableHeading>
       <TableContainer>
         <StyledTable>
           <thead>

@@ -1,9 +1,8 @@
 import React from "react";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import App from "../src/App";
-import * as api from "../src/services/mockApi"; // import the mockable fetch function
+import * as api from "../src/services/mockApi";
 
-// Sample mock data
 const mockTransactions = [
   {
     transactionId: "T1",
@@ -43,7 +42,6 @@ describe("App Component", () => {
     render(<App />);
     expect(screen.getByText(/Loading transactions/i)).toBeInTheDocument();
 
-    // Wait for transactions to be fetched and loaded
     await waitFor(() => {
       expect(screen.getByText("Alice")).toBeInTheDocument();
       expect(screen.getByText("Bob")).toBeInTheDocument();
@@ -58,21 +56,13 @@ describe("App Component", () => {
       expect(screen.getByText("Alice")).toBeInTheDocument();
     });
 
-    // Click on Alice
     fireEvent.click(screen.getByText("Alice"));
 
-    // Filters section should be visible
     expect(await screen.findByText(/Month:/i)).toBeInTheDocument();
 
-    // Rewards summary for Alice
     expect(screen.getByText(/Rewards Summary - Alice/i)).toBeInTheDocument();
 
-    // Transaction table heading
     expect(screen.getByText(/Transaction Details/i)).toBeInTheDocument();
-
-    // // Transaction data
-    // expect(screen.getByText("T1")).toBeInTheDocument();
-    // expect(screen.getByText("T2")).toBeInTheDocument();
   });
 
   it("shows error message when API call fails", async () => {

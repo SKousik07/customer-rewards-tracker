@@ -5,6 +5,7 @@ import {
   Label,
   Select,
   ResetButton,
+  FilterSummary,
 } from "../styles/filterStyles";
 import { VerticalCenterWrapper } from "../styles/commonStyles";
 import { getFilterSummary } from "../utils/rewardUtils";
@@ -64,7 +65,9 @@ const Filters = ({ filters, onChange, onReset }) => {
         <ResetButton onClick={onReset}>Reset Filters</ResetButton>
       </FilterWrapper>
       <VerticalCenterWrapper>
-        {getFilterSummary(filters.month, filters.year)}
+        <FilterSummary>
+          {getFilterSummary(filters.month, filters.year)}
+        </FilterSummary>
       </VerticalCenterWrapper>
     </>
   );
