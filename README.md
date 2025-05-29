@@ -1,12 +1,11 @@
 # 📓 Customer Reward Tracker
 
-A clean and responsive transaction summary dashboard built with **React** and **Styled Components**, featuring filtering, table views, summary blocks, and pagination. Designed with a soft and warm color palette for better visual clarity.
-
+A clean transaction summary dashboard built with React and Styled Components, featuring filtering, table views, summary blocks, and pagination for tracking customer rewards effectively.
 ---
 
 ## ✨ Features
 
-* ✅ Filter transactions by month and category
+* ✅ Filter transactions by month and year
 * 📊 Paginated transaction table
 * 💡 Summary section showing total rewards and stats
 * 📁 Styled with custom color palette using `styled-components`
