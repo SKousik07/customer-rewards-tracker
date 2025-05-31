@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { COMMON_LABELS } from "../constants";
 
 const spin = keyframes`
   to { transform: rotate(360deg); }
@@ -27,7 +28,7 @@ export default function LoadingSpinner() {
   return (
     <SpinnerWrapper>
       <Spinner />
-      <span>Loading transactions...</span>
+      <span>{COMMON_LABELS.LOADING}</span>
     </SpinnerWrapper>
   );
 }

@@ -8,24 +8,25 @@ import {
   TableContainer,
   TableHeading,
 } from "../styles/customerTableStyles";
+import { CUSTOMER_TABLE_LABELS } from "../constants";
 
 function CustomerList({ customers, selectedCustomer, onChange }) {
   return (
     <>
-      <TableHeading>Customer List</TableHeading>
+      <TableHeading>{CUSTOMER_TABLE_LABELS.HEADING}</TableHeading>
       <TableContainer>
         <StyledTable>
           <thead>
             <tr>
-              <StyledTh>Customer Name</StyledTh>
-              <StyledTh>Total Rewards</StyledTh>
+              <StyledTh>{CUSTOMER_TABLE_LABELS.NAME_HEADER}</StyledTh>
+              <StyledTh>{CUSTOMER_TABLE_LABELS.REWARDS_HEADER}</StyledTh>
             </tr>
           </thead>
           <tbody>
             {customers.map((customer) => (
               <StyledTr
                 key={customer.customerId}
-                selected={selectedCustomer.customerId === customer.customerId}
+                selected={selectedCustomer?.customerId === customer?.customerId}
                 onClick={() => onChange(customer)}
               >
                 <StyledTd>{customer.customerName}</StyledTd>
@@ -40,8 +41,18 @@ function CustomerList({ customers, selectedCustomer, onChange }) {
 }
 
 CustomerList.propTypes = {
-  customers: PropTypes.array.isRequired,
-  selectedCustomer: PropTypes.object.isRequired,
+  customers: PropTypes.arrayOf(
+    PropTypes.shape({
+      customerId: PropTypes.string.isRequired,
+      customerName: PropTypes.string.isRequired,
+      totalRewards: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  selectedCustomer: PropTypes.shape({
+    customerId: PropTypes.string.isRequired,
+    customerName: PropTypes.string.isRequired,
+    totalRewards: PropTypes.number.isRequired,
+  }).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

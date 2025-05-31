@@ -9,23 +9,9 @@ import {
 } from "../styles/filterStyles";
 import { VerticalCenterWrapper } from "../styles/commonStyles";
 import { getFilterSummary } from "../utils/rewardUtils";
+import { MONTHS, FILTER_LABELS } from "../constants";
 
 const Filters = ({ filters, onChange, onReset }) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, i) =>
     (currentYear - i).toString()
@@ -34,27 +20,27 @@ const Filters = ({ filters, onChange, onReset }) => {
   return (
     <>
       <FilterWrapper>
-        <Label htmlFor="month-select">Month:</Label>
+        <Label htmlFor="month-select">{FILTER_LABELS.MONTH}</Label>
         <Select
           id="month-select"
           value={filters.month}
           onChange={(e) => onChange("month", e.target.value)}
         >
-          <option value="">-- Select Month --</option>
-          {months.map((month) => (
+          <option value="">{FILTER_LABELS.SELECT_MONTH}</option>
+          {MONTHS.map((month) => (
             <option key={month} value={month}>
               {month}
             </option>
           ))}
         </Select>
 
-        <Label htmlFor="year-select">Year:</Label>
+        <Label htmlFor="year-select">{FILTER_LABELS.YEAR}</Label>
         <Select
           id="year-select"
           value={filters.year}
           onChange={(e) => onChange("year", e.target.value)}
         >
-          <option value="">-- Select Year --</option>
+          <option value="">{FILTER_LABELS.SELECT_YEAR}</option>
           {years.map((year) => (
             <option key={year} value={year}>
               {year}
@@ -62,7 +48,9 @@ const Filters = ({ filters, onChange, onReset }) => {
           ))}
         </Select>
 
-        <ResetButton onClick={onReset}>Reset Filters</ResetButton>
+        <ResetButton onClick={onReset}>
+          {FILTER_LABELS.RESET_BUTTON}
+        </ResetButton>
       </FilterWrapper>
       <VerticalCenterWrapper>
         <FilterSummary>

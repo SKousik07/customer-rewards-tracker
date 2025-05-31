@@ -12,21 +12,28 @@ import {
   PaginationButton,
   NoDataText,
 } from "../styles/transactionTableStyles";
-
-const ITEMS_PER_PAGE = 5;
+import {
+  TABLE_HEADINGS,
+  TABLE_MESSAGES,
+  getPaginationLabel,
+  PAGINATION_LIMIT,
+  PAGINATION_LABELS,
+} from "../constants";
 
 const TransactionTable = ({ filteredTransactions }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const getInitialPage = () => 1;
+
+  const [currentPage, setCurrentPage] = useState(getInitialPage());
 
   useEffect(() => {
     setCurrentPage(1);
   }, [filteredTransactions]);
 
-  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredTransactions.length / PAGINATION_LIMIT);
 
   const paginatedData = filteredTransactions.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    (currentPage - 1) * PAGINATION_LIMIT,
+    currentPage * PAGINATION_LIMIT
   );
 
   const handlePrev = () => {
@@ -39,19 +46,18 @@ const TransactionTable = ({ filteredTransactions }) => {
 
   return (
     <TableContainer>
-      <TableHeading>Transaction Details</TableHeading>
+      <TableHeading>{TABLE_MESSAGES.HEADING}</TableHeading>
 
       {filteredTransactions.length === 0 ? (
-        <NoDataText>No transactions found for the selected filters.</NoDataText>
+        <NoDataText>{TABLE_MESSAGES.NO_DATA}</NoDataText>
       ) : (
         <>
           <StyledTable>
             <thead>
               <tr>
-                <StyledTh>Transaction ID</StyledTh>
-                <StyledTh>Date</StyledTh>
-                <StyledTh>Amount ($)</StyledTh>
-                <StyledTh>Reward Points</StyledTh>
+                {TABLE_HEADINGS.map((heading, i) => (
+                  <StyledTh key={i}>{heading}</StyledTh>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -68,16 +74,14 @@ const TransactionTable = ({ filteredTransactions }) => {
 
           <PaginationContainer>
             <PaginationButton onClick={handlePrev} disabled={currentPage === 1}>
-              Previous
+              {PAGINATION_LABELS.PREVIOUS}
             </PaginationButton>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
+            <span>{getPaginationLabel(currentPage, totalPages)}</span>
             <PaginationButton
               onClick={handleNext}
               disabled={currentPage === totalPages}
             >
-              Next
+              {PAGINATION_LABELS.NEXT}
             </PaginationButton>
           </PaginationContainer>
         </>
@@ -87,7 +91,13 @@ const TransactionTable = ({ filteredTransactions }) => {
 };
 
 TransactionTable.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired,
+  filteredTransactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      transactionId: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
 
 export default TransactionTable;

@@ -23,6 +23,12 @@ export const SummaryItem = styled.div`
   }
 `;
 
+export const TotalSummaryItem = styled(SummaryItem)`
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+`;
+
 export const Title = styled.h3`
   text-align: center;
   margin-bottom: 20px;

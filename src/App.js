@@ -14,10 +14,10 @@ import LoadingSpinner from "./components/loadingSpinner";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [selectedCustomer, setSelectedCustomer] = useState("");
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   const [filters, setFilters] = useState({ month: "", year: "" });
   const [useRecent3Months, setUseRecent3Months] = useState(true);
@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     const loadTransactions = async () => {
       try {
+        setLoading(true);
         const response = await fetchTransactions();
         setTransactions(response);
         setLoading(false);
@@ -72,17 +73,27 @@ function App() {
     setUseRecent3Months(true);
   };
 
-  const filteredTransactions = useRecent3Months
-    ? getRecentThreeMonthsTransactions(
-        transactions,
-        selectedCustomer.customerId
-      )
-    : getFilteredTransactions(
-        transactions,
-        selectedCustomer.customerId,
-        filters.month,
-        filters.year
-      );
+  const filteredTransactions = useMemo(() => {
+    if (!selectedCustomer) return [];
+
+    return useRecent3Months
+      ? getRecentThreeMonthsTransactions(
+          transactions,
+          selectedCustomer.customerId
+        )
+      : getFilteredTransactions(
+          transactions,
+          selectedCustomer.customerId,
+          filters.month,
+          filters.year
+        );
+  }, [
+    useRecent3Months,
+    transactions,
+    selectedCustomer,
+    filters.month,
+    filters.year,
+  ]);
 
   return (
     <>

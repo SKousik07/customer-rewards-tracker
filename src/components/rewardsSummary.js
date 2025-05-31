@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { calculateRewardPoints } from "../utils/rewardUtils";
 import {
@@ -6,9 +6,11 @@ import {
   SummaryContainer,
   SummaryItem,
   Title,
+  TotalSummaryItem,
 } from "../styles/rewardsSummaryStyles";
+import { REWARDS_LABELS } from "../constants";
 
-const rewardsPerMonth = (transactions) => {
+const getRewardsPerMonth = (transactions) => {
   const summary = {};
 
   transactions.forEach((txn) => {
@@ -28,37 +30,43 @@ const rewardsPerMonth = (transactions) => {
 };
 
 const RewardsSummary = ({ filteredTransactions, selectedCustomer }) => {
-  const monthlySummary = rewardsPerMonth(filteredTransactions);
-  const total = Object.values(monthlySummary).reduce(
-    (sum, val) => sum + val,
-    0
+  const monthlySummary = useMemo(
+    () => getRewardsPerMonth(filteredTransactions),
+    [filteredTransactions]
+  );
+
+  const total = useMemo(
+    () => Object.values(monthlySummary).reduce((sum, val) => sum + val, 0),
+    [monthlySummary]
   );
 
   if (!selectedCustomer) return null;
 
   return (
     <SummaryContainer>
-      <Title>Rewards Summary - {selectedCustomer.customerName}</Title>
+      <Title>
+        {REWARDS_LABELS.TITLE_PREFIX}
+        {selectedCustomer.customerName}
+      </Title>
+
       {filteredTransactions.length === 0 ? (
-        <NoDataText>No transactions found for the selected filters.</NoDataText>
+        <NoDataText>{REWARDS_LABELS.NO_TRANSACTIONS}</NoDataText>
       ) : (
         <>
           {Object.entries(monthlySummary).map(([month, points]) => (
             <SummaryItem key={month}>
               <span>{month}</span>
-              <span>{points} points</span>
+              <span>
+                {points} {REWARDS_LABELS.POINTS_SUFFIX}
+              </span>
             </SummaryItem>
           ))}
-          <SummaryItem
-            style={{
-              fontWeight: "bold",
-              borderTop: "1px solid #ddd",
-              paddingTop: "10px",
-            }}
-          >
-            <span>Total</span>
-            <span>{total} points</span>
-          </SummaryItem>
+          <TotalSummaryItem>
+            <span>{REWARDS_LABELS.TOTAL}</span>
+            <span>
+              {total} {REWARDS_LABELS.POINTS_SUFFIX}
+            </span>
+          </TotalSummaryItem>
         </>
       )}
     </SummaryContainer>
@@ -66,8 +74,16 @@ const RewardsSummary = ({ filteredTransactions, selectedCustomer }) => {
 };
 
 RewardsSummary.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired,
-  selectedCustomer: PropTypes.object,
+  filteredTransactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  selectedCustomer: PropTypes.shape({
+    customerId: PropTypes.string.isRequired,
+    customerName: PropTypes.string.isRequired,
+  }),
 };
 
 export default RewardsSummary;
