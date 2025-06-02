@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { calculateRewardPoints } from "../utils/rewardUtils";
 import {
-  TableContainer,
-  StyledTable,
-  StyledTh,
-  StyledTd,
-  StyledTr,
-  TableHeading,
-  PaginationContainer,
-  PaginationButton,
   NoDataText,
+  PaginationButton,
+  PaginationContainer,
+  StyledTable,
+  StyledTd,
+  StyledTh,
+  StyledTr,
+  TableContainer,
+  TableHeading,
 } from "../styles/transactionTableStyles";
 import {
+  getPaginationLabel,
+  PAGINATION_LABELS,
+  PAGINATION_LIMIT,
   TABLE_HEADINGS,
   TABLE_MESSAGES,
-  getPaginationLabel,
-  PAGINATION_LIMIT,
-  PAGINATION_LABELS,
 } from "../constants";
 
+const INITIAL_PAGE = 1;
+
 const TransactionTable = ({ filteredTransactions }) => {
-  const getInitialPage = () => 1;
-
-  const [currentPage, setCurrentPage] = useState(getInitialPage());
-
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(INITIAL_PAGE);
   }, [filteredTransactions]);
 
   const totalPages = Math.ceil(filteredTransactions.length / PAGINATION_LIMIT);
@@ -61,12 +61,16 @@ const TransactionTable = ({ filteredTransactions }) => {
               </tr>
             </thead>
             <tbody>
-              {paginatedData.map((tx) => (
-                <StyledTr key={tx.transactionId}>
-                  <StyledTd>{tx.transactionId}</StyledTd>
-                  <StyledTd>{new Date(tx.date).toLocaleDateString()}</StyledTd>
-                  <StyledTd>{tx.amount.toFixed(2)}</StyledTd>
-                  <StyledTd>{calculateRewardPoints(tx.amount)}</StyledTd>
+              {paginatedData.map((transaction) => (
+                <StyledTr key={transaction.transactionId}>
+                  <StyledTd>{transaction.transactionId}</StyledTd>
+                  <StyledTd>
+                    {new Date(transaction.date).toLocaleDateString()}
+                  </StyledTd>
+                  <StyledTd>{transaction.amount.toFixed(2)}</StyledTd>
+                  <StyledTd>
+                    {calculateRewardPoints(transaction.amount)}
+                  </StyledTd>
                 </StyledTr>
               ))}
             </tbody>

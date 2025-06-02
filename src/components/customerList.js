@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import { CUSTOMER_TABLE_LABELS } from "../constants";
 import {
   StyledTable,
-  StyledTh,
   StyledTd,
+  StyledTh,
   StyledTr,
   TableContainer,
   TableHeading,
 } from "../styles/customerTableStyles";
-import { CUSTOMER_TABLE_LABELS } from "../constants";
 
 function CustomerList({ customers, selectedCustomer, onChange }) {
   return (

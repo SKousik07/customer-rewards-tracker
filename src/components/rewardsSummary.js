@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
+
 import { calculateRewardPoints } from "../utils/rewardUtils";
 import {
   NoDataText,
@@ -13,8 +14,8 @@ import { REWARDS_LABELS } from "../constants";
 const getRewardsPerMonth = (transactions) => {
   const summary = {};
 
-  transactions.forEach((txn) => {
-    const date = new Date(txn.date);
+  transactions.forEach((transaction) => {
+    const date = new Date(transaction.date);
     const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
     const key = `${month} ${year}`;
@@ -23,17 +24,23 @@ const getRewardsPerMonth = (transactions) => {
       summary[key] = 0;
     }
 
-    summary[key] += calculateRewardPoints(txn.amount);
+    summary[key] += calculateRewardPoints(transaction.amount);
   });
 
   return summary;
 };
 
 const RewardsSummary = ({ filteredTransactions, selectedCustomer }) => {
-  const monthlySummary = useMemo(
-    () => getRewardsPerMonth(filteredTransactions),
-    [filteredTransactions]
-  );
+  const monthlySummary = useMemo(() => {
+    const summary = getRewardsPerMonth(filteredTransactions);
+
+    const sortedEntries = Object.entries(summary).sort(
+      ([monthA], [monthB]) =>
+        new Date(`${monthA} 1, 2000`) - new Date(`${monthB} 1, 2000`)
+    );
+
+    return Object.fromEntries(sortedEntries);
+  }, [filteredTransactions]);
 
   const total = useMemo(
     () => Object.values(monthlySummary).reduce((sum, val) => sum + val, 0),
@@ -49,9 +56,11 @@ const RewardsSummary = ({ filteredTransactions, selectedCustomer }) => {
         {selectedCustomer.customerName}
       </Title>
 
-      {filteredTransactions.length === 0 ? (
+      {filteredTransactions.length === 0 && (
         <NoDataText>{REWARDS_LABELS.NO_TRANSACTIONS}</NoDataText>
-      ) : (
+      )}
+
+      {filteredTransactions.length > 0 && (
         <>
           {Object.entries(monthlySummary).map(([month, points]) => (
             <SummaryItem key={month}>

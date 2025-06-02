@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
+
 import {
+  FilterSummary,
   FilterWrapper,
   Label,
-  Select,
   ResetButton,
-  FilterSummary,
+  Select,
 } from "../styles/filterStyles";
-import { VerticalCenterWrapper } from "../styles/commonStyles";
 import { getFilterSummary } from "../utils/rewardUtils";
 import { MONTHS, FILTER_LABELS } from "../constants";
+import { VerticalCenterWrapper } from "../styles/commonStyles";
 
 const Filters = ({ filters, onChange, onReset }) => {
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 5 }, (_, i) =>
-    (currentYear - i).toString()
-  );
+  const years = useMemo(() => {
+    return Array.from({ length: 5 }, (_, i) => (currentYear - i).toString());
+  }, [currentYear]);
 
   return (
     <>

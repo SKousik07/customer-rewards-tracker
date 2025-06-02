@@ -88,7 +88,7 @@
     "customerName": "Jane Smith",
     "transactionId": "13",
     "amount": 160,
-    "date": "2025-03-13"
+    "date": "2024-06-13"
   },
   {
     "customerId": "2",
@@ -250,5 +250,131 @@
     "transactionId": "36",
     "amount": 110,
     "date": "2025-05-14"
+  },
+  {
+    "customerId": "7",
+    "customerName": "Kousik",
+    "transactionId": "37",
+    "amount": 90,
+    "date": "2025-02-03"
+  },
+  {
+    "customerId": "7",
+    "customerName": "Kousik",
+    "transactionId": "38",
+    "amount": 110,
+    "date": "2025-02-14"
+  },
+  {
+    "customerId": "8",
+    "customerName": "Sam",
+    "transactionId": "39",
+    "amount": 90,
+    "date": "2025-01-03"
+  },
+  {
+    "customerId": "8",
+    "customerName": "Sam",
+    "transactionId": "40",
+    "amount": 110,
+    "date": "2025-02-24"
+  },
+  {
+    "customerId": "9",
+    "customerName": "Ram",
+    "transactionId": "41",
+    "amount": 190,
+    "date": "2024-04-03"
+  },
+  {
+    "customerId": "9",
+    "customerName": "Ram",
+    "transactionId": "42",
+    "amount": 120,
+    "date": "2025-04-24"
+  },
+  {
+    "customerId": "10",
+    "customerName": "Marsh",
+    "transactionId": "43",
+    "amount": 90,
+    "date": "2023-04-03"
+  },
+  {
+    "customerId": "10",
+    "customerName": "Marsh",
+    "transactionId": "44",
+    "amount": 140,
+    "date": "2024-03-12"
+  },
+  {
+    "customerId": "11",
+    "customerName": "Ponting",
+    "transactionId": "45",
+    "amount": 50,
+    "date": "2021-09-03"
+  },
+  {
+    "customerId": "11",
+    "customerName": "Ponting",
+    "transactionId": "46",
+    "amount": 100,
+    "date": "2023-07-12"
+  },
+  {
+    "customerId": "12",
+    "customerName": "Ricky",
+    "transactionId": "47",
+    "amount": 150,
+    "date": "2024-11-03"
+  },
+  {
+    "customerId": "12",
+    "customerName": "Ricky",
+    "transactionId": "48",
+    "amount": 180,
+    "date": "2023-10-10"
+  },
+  {
+    "customerId": "13",
+    "customerName": "Rohit",
+    "transactionId": "49",
+    "amount": 100,
+    "date": "2022-11-11"
+  },
+  {
+    "customerId": "13",
+    "customerName": "Rohit",
+    "transactionId": "50",
+    "amount": 80,
+    "date": "2022-10-10"
+  },
+  {
+    "customerId": "14",
+    "customerName": "Jamieson",
+    "transactionId": "51",
+    "amount": 100,
+    "date": "2021-07-11"
+  },
+  {
+    "customerId": "14",
+    "customerName": "Jamieson",
+    "transactionId": "52",
+    "amount": 80,
+    "date": "2021-12-12"
+  },
+  {
+    "customerId": "15",
+    "customerName": "Anderson",
+    "transactionId": "53",
+    "amount": 100,
+    "date": "2023-02-19"
+  },
+  {
+    "customerId": "15",
+    "customerName": "Anderson",
+    "transactionId": "54",
+    "amount": 80,
+    "date": "2022-09-12"
   }
 ]

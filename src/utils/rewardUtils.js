@@ -15,23 +15,25 @@ const getRecentThreeMonthsTransactions = (transactions, customerId) => {
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(now.getMonth() - 3);
 
-  return transactions.filter((t) => {
-    const txDate = new Date(t.date);
+  return transactions.filter((transaction) => {
+    const txDate = new Date(transaction.date);
     return (
-      t.customerId === customerId && txDate >= threeMonthsAgo && txDate <= now
+      transaction.customerId === customerId &&
+      txDate >= threeMonthsAgo &&
+      txDate <= now
     );
   });
 };
 
 const getFilteredTransactions = (transactions, customerId, month, year) => {
-  return transactions.filter((t) => {
-    const txDate = new Date(t.date);
+  return transactions.filter((transaction) => {
+    const txDate = new Date(transaction.date);
     const txMonth = txDate.toLocaleString("default", { month: "long" });
     const txYear = txDate.getFullYear().toString();
 
     const matchesMonth = month ? month === txMonth : true;
     const matchesYear = year ? year === txYear : true;
-    return t.customerId === customerId && matchesMonth && matchesYear;
+    return transaction.customerId === customerId && matchesMonth && matchesYear;
   });
 };
 
