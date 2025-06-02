@@ -47,6 +47,28 @@ npm start
 The app will be running on [http://localhost:3000](http://localhost:3000)
 
 ---
+## 🧪 Testing Structure
+
+All components and utilities have their respective test files organized within a tests folder inside their main directories. This makes it easier to keep tests close to the code they validate.
+
+📁 Folder Structure
+```bash
+src/
+├── components/
+│   ├── transactionTable.jsx
+│   └── tests/
+│       └── transactionTable.test.jsx
+│
+├── utils/
+│   ├── rewardsUtils.js
+│   └── tests/
+│       └── calculateRewardPoints.test.js
+│
+├── services/
+│   ├── mockApi.js
+│   └── tests/
+│       └── mockApi.test.js
+```
 
 ## 🧪 Run Tests
 
