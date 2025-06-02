@@ -11,6 +11,24 @@ A clean transaction summary dashboard built with React and Styled Components, fe
 * 📁 Styled with custom color palette using `styled-components`
 * 🛠 Graceful UI states: loading, empty data, and error handling
 * ✅ Fully tested with Jest and React Testing Library
+  
+🔍 Filter Logic
+* The app supports a flexible transaction filtering system based on month and year:
+
+📅 Default View:
+Shows transactions from the most recent 3 months automatically on initial load.
+
+🔄 When only Month is selected:
+Displays all transactions that occurred in that month across every available year.
+(e.g., selecting "March" shows March transactions from 2022, 2023, etc.)
+
+🔄 When only Year is selected:
+Displays all months within the selected year.
+
+🔄 When both Month and Year are selected:
+Shows transactions that occurred in that specific month and year combination.
+
+This approach ensures both flexibility and clarity for the user when exploring their rewards history.
 
 ---
 
